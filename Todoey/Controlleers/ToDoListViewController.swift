@@ -66,13 +66,20 @@ class ToDoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            context.delete(itemArray[indexPath.row])
-//            itemArray.remove(at: indexPath.row)
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//
-//            saveItems()
-//        }
+        if editingStyle == .delete {
+            
+            if let item = toDoItems?[indexPath.row] {
+                do {
+                    try realm.write {
+                        realm.delete(item)
+                    }
+                } catch {
+                    print("Error saving done status, \(error)")
+                }
+            }
+            
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
     
     //MARK - Add New Items
