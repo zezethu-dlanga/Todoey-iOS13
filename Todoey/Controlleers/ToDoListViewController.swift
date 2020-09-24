@@ -8,7 +8,6 @@
 
 import UIKit
 import RealmSwift
-
 class ToDoListViewController: UITableViewController {
 
     var toDoItems: Results<Item>?
@@ -26,7 +25,7 @@ class ToDoListViewController: UITableViewController {
         super.viewDidLoad()
     }
 
-    //MARK - Tableview Datasource Methods
+    //MARK: - Tableview Datasource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return toDoItems?.count ?? 1
@@ -42,12 +41,10 @@ class ToDoListViewController: UITableViewController {
             cell.textLabel?.text = "No Items Added"
         }
         
-       
-     
         return cell
     }
     
-    //MARK - Tableview Delegate Methods
+    //MARK: - Tableview Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -60,11 +57,11 @@ class ToDoListViewController: UITableViewController {
                 print("Error saving done status, \(error)")
             }
         }
+
+        tableView.reloadData()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    //MARK: - Swipe Cell Delegate Methods
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -83,7 +80,7 @@ class ToDoListViewController: UITableViewController {
         }
     }
     
-    //MARK - Add New Items
+    //MARK: - Add New Items
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
@@ -118,7 +115,7 @@ class ToDoListViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    //MARK - Model Manupulation Methods
+    //MARK: - Model Manupulation Methods
     
     func loadItems() {
         toDoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
@@ -126,7 +123,7 @@ class ToDoListViewController: UITableViewController {
     }
 }
 
-//MARK - Search bar methods
+//MARK: - Search bar methods
 
 extension ToDoListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
