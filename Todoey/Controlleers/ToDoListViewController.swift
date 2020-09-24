@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+
 class ToDoListViewController: UITableViewController {
 
     var toDoItems: Results<Item>?
@@ -59,11 +60,11 @@ class ToDoListViewController: UITableViewController {
                 print("Error saving done status, \(error)")
             }
         }
-
-        tableView.reloadData()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    //MARK: - Swipe Cell Delegate Methods
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
